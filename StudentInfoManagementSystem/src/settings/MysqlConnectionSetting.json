@@ -1,0 +1,5 @@
+{
+  "user":"root",
+  "password": "keenes",
+  "url": "jdbc:mysql://localhost:3306/SIMS?useSSL=false"
+}

@@ -1,0 +1,47 @@
+综合性实验—学生成绩管理系统
+计划实验学时：8学时
+实验仪器设备：多媒体计算机。
+实验目的：
+在掌握相关基础知识的基础上，学会自己设计实验，熟练掌握JDBC技术访问数据库（或数据文件）的方法、在Java中进行数据库应用程序开发的方法和步骤，熟悉Swing组件特性和Action接口并能够恰当运用实现特定功能，会开发多窗体应用程序。
+实验要求：
+在8学时以内，制作出能够实现基本功能的学生成绩管理系统。写出技术工作报告并附源程序。
+实验内容及任务：
+1．进行数据库（或数据文件）设计，数据分为学生信息、成绩管理、信息查询等三部分；使用学生信息表、课程表两个数据表来存放数据。
+2．选择适当组件进行界面设计：界面要美观大方，具有主菜单和相应工具栏及按钮；
+3．编写事件代码：
+   能够实现学生信息维护（录入、修改和删除）；
+   学生信息浏览；-------ok
+   按“学号”查询学生信息； -------ok
+   按“姓名”和“所在班级”查询学生信息；
+   按“学院名称”查询学生信息；
+   按课程查询学生成绩等功能。
+4．分析总结。
+实现步骤：
+    1． 数据库、数据表（或数据文件）设计；
+    2． 主控模块设计；
+    3． 学生信息维护模块设计；
+    4． 学生信息查询模块设计；
+    5． 课程信息查询模块设计；
+
+create database SIMS DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+create table StudentBasicMsg
+    (ID char(12),
+    StudentName varchar(50) not null,
+    Gender char(5) not null,
+    Class char(15),
+    College char(20),
+    primary key(ID)
+    );
+create table CourseBasicMsg (
+  Course char(4),
+  CourseName char(50) not null,
+  primary key(Course)
+);
+create table SelectCourseMsg (
+    ID char(12),
+    Course char(4),
+    Grade float,
+    foreign key (ID) references StudentBasicMsg(ID),
+    foreign key (Course) references CourseBasicMsg(Course)
+);
