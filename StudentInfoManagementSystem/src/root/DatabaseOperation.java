@@ -27,6 +27,48 @@ public class DatabaseOperation {
         }
     }
 
+    private ArrayList<String> singleselect(String sql,String cowname) {
+        ArrayList<String> ret = new ArrayList<>();
+        Statement stmt = null;
+        try{
+            stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            // 展开结果集数据库
+            while(rs.next()){
+                // 通过字段检索
+                ret.add(rs.getString(cowname));
+            }
+            // 完成后关闭
+            rs.close();
+        }catch(SQLException se){
+            // 处理 JDBC 错误
+            se.printStackTrace();
+        }catch(Exception e){
+            // 处理 Class.forName 错误
+            e.printStackTrace();
+        }finally{
+            // 关闭资源
+            try{
+                if(stmt!=null) stmt.close();
+            }catch(SQLException se2){
+            }// 什么都不做
+        }
+        return ret;
+
+    }
+
+    public ArrayList<String> GetCollegeList() {
+        String sql;
+        sql = "SELECT distinct college FROM StudentBasicMsg";
+        return singleselect(sql,"college");
+    }
+
+    public ArrayList<String> GetClassList() {
+        String sql;
+        sql = "SELECT distinct class FROM StudentBasicMsg order by class";
+        return singleselect(sql,"class");
+    }
+
     public ArrayList<BasicStuentInfoBlob> GetStudentBasicInfo_all() {
         ArrayList<BasicStuentInfoBlob> ret = new ArrayList<>();
         Statement stmt = null;
@@ -140,13 +182,16 @@ public class DatabaseOperation {
         return ret;
     }
 
-    public ArrayList<BasicStuentInfoBlob> GetStudentBasicInfo_byClassAndName(String Class_,String Name) {
+    public ArrayList<BasicStuentInfoBlob> GetStudentBasicInfo_byCollegeClassAndName(String college,String Class_,String Name) {
         ArrayList<BasicStuentInfoBlob> ret = new ArrayList<>();
         Statement stmt = null;
         try{
             stmt = conn.createStatement();
             String sql;
-            sql = "SELECT * FROM StudentBasicMsg where Class = " + Class_ + " and StudentName = " + '"'+Name + '"';
+            if(Name == null || Name.length() == 0) {
+                Name = new String(".*");
+            }
+            sql = "SELECT * FROM StudentBasicMsg where College = "+ '"'+ college +'"' +" and Class = " + '"' + Class_ + '"' + " and StudentName REGEXP " + '"'+Name + '"' + "order by gender,studentname";
             ResultSet rs = stmt.executeQuery(sql);
             // 展开结果集数据库
             while(rs.next()){
@@ -278,4 +323,3 @@ public class DatabaseOperation {
         }
     }
 }
-

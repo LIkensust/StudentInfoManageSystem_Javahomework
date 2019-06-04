@@ -63,8 +63,7 @@ class PartlySet implements ItemListener{
         conn.setLayout(new BorderLayout());
         JPanel comboBoxPane = new JPanel();
         String comboBoxItems[] = {"按学号查询",
-                                  "按姓名+班级查询",
-                                  "按学院查询",
+                                  "分类查询",
                                   "显示全部"};
         JComboBox cb = new JComboBox(comboBoxItems);
         cb.setEditable(false);
@@ -75,19 +74,15 @@ class PartlySet implements ItemListener{
         PageSet_page1 setter1 = new PageSet_page1(card1);
 
         JPanel card2 = new JPanel();
-        card2.add(new JLabel("welcome 2"));
+        PageSet_page2 setter2 = new PageSet_page2(card2);
 
         JPanel card3 = new JPanel();
-        card3.add(new JLabel("welcome 3"));
-
-        JPanel card4 = new JPanel();
-        PageSet_page4 setter4 = new PageSet_page4(card4);
+        PageSet_page3 setter3 = new PageSet_page3(card3);
 
         cards = new JPanel(new CardLayout());
         cards.add(card1,comboBoxItems[0]);
         cards.add(card2,comboBoxItems[1]);
         cards.add(card3,comboBoxItems[2]);
-        cards.add(card4,comboBoxItems[3]);
 
         conn.add(comboBoxPane,BorderLayout.PAGE_START);
         conn.add(cards,BorderLayout.CENTER);
@@ -175,8 +170,10 @@ class PageSet_page1 implements ActionListener {
     }
 }
 
+//select by collage,class and name
 class PageSet_page2 implements ActionListener {
     private Container page_;
+    private JComboBox collageEditor;
     private JComboBox classEditor;
     private JTextField nameEditor;
     private JButton Search;
@@ -195,15 +192,32 @@ class PageSet_page2 implements ActionListener {
     public void setpage() {
         page_.setLayout(new BorderLayout());
         //input
-        ArrayList<String> classlist = new ArrayList<>();
+        DatabaseOperation dbop = new DatabaseOperation();
+        collageEditor = new JComboBox();
+        ArrayList<String> collegelist = dbop.GetCollegeList();
+        for(int i=0; i < collegelist.size(); i++) {
+            collageEditor.addItem(collegelist.get(i));
+        }
+        collageEditor.setEditable(true);
+
         classEditor = new JComboBox();
+        ArrayList<String> classlist = dbop.GetClassList();
+        for(int i = 0; i < classlist.size(); i++) {
+            classEditor.addItem(classlist.get(i));
+        }
+        classEditor.setEditable(true);
+
+        nameEditor = new JTextField(10);
 
         JPanel top = new JPanel();
         //ok
         Search = new JButton("查询");
+        //Search.addKeyListener(this);
         Search.addActionListener(this);
 
-        top.add(IDEditor);
+        top.add(collageEditor);
+        top.add(classEditor);
+        top.add(nameEditor);
         top.add(Search);
 
         page_.add(top,BorderLayout.PAGE_START);
@@ -222,28 +236,25 @@ class PageSet_page2 implements ActionListener {
     public void actionPerformed(ActionEvent actionEvent) {
         String cmd = actionEvent.getActionCommand();
         if(cmd.equals("查询")) {
-            String idnum = IDEditor.getText();
-            boolean inputisok = CheckTool.CheckId(idnum);
-            if(inputisok == false) {
-                JOptionPane.showMessageDialog(new JDialog(),"学号应该是12位的数字","请重试",JOptionPane.WARNING_MESSAGE);
+            String collegename = (String)collageEditor.getSelectedItem();
+            String classname = (String)classEditor.getSelectedItem();
+            String studentname = nameEditor.getText();
+            DatabaseOperation dbop  = new DatabaseOperation();
+            ArrayList<BasicStuentInfoBlob> msg = dbop.GetStudentBasicInfo_byCollegeClassAndName(collegename,classname,studentname);
+            while(table_model.getRowCount()!=0) {
+                table_model.removeRow(0);
+            }
+            if(msg.size() == 0) {
+                JOptionPane.showMessageDialog(new JDialog(),"没有找到相关学生相关信息","请重试",JOptionPane.WARNING_MESSAGE);
             } else {
-                DatabaseOperation dbop  = new DatabaseOperation();
-                ArrayList<BasicStuentInfoBlob> msg = dbop.GetStudentBasicInfo_byID(idnum);
-                for(int i=0;i<table_model.getRowCount();i++) {
-                    table_model.removeRow(i);
-                }
-                if(msg.size() == 0) {
-                    JOptionPane.showMessageDialog(new JDialog(),"没有找到该学生相关信息","请重试",JOptionPane.WARNING_MESSAGE);
-                } else {
-                    for(int i=0;i<msg.size();i++) {
-                        String[] oneline = new String[5];
-                        oneline[0] = msg.get(i).getID_();
-                        oneline[1] = msg.get(i).getName_();
-                        oneline[2] = msg.get(i).getGender_();
-                        oneline[3] = msg.get(i).getCollage_();
-                        oneline[4] = msg.get(i).getClass_();
-                        table_model.addRow(oneline);
-                    }
+                for(int i=0;i<msg.size();i++) {
+                    String[] oneline = new String[5];
+                    oneline[0] = msg.get(i).getID_();
+                    oneline[1] = msg.get(i).getName_();
+                    oneline[2] = msg.get(i).getGender_();
+                    oneline[3] = msg.get(i).getCollage_();
+                    oneline[4] = msg.get(i).getClass_();
+                    table_model.addRow(oneline);
                 }
             }
             page_.revalidate();
@@ -251,7 +262,8 @@ class PageSet_page2 implements ActionListener {
     }
 }
 
-class PageSet_page4 implements ActionListener {
+//show all
+class PageSet_page3 implements ActionListener {
     private Container page_;
     private JButton Search;
     private DefaultTableModel table_model;
@@ -259,7 +271,7 @@ class PageSet_page4 implements ActionListener {
     private JScrollPane scrollPane;
 
     String[] head = {"学号","姓名","性别","学院","班级"};
-    PageSet_page4(Container page) {
+    PageSet_page3(Container page) {
         page_ = page;
         page_.setLayout(new BorderLayout());
         //page_.setLayout(new BorderLayout());

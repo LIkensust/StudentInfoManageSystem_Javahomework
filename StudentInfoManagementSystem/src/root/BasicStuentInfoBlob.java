@@ -1,6 +1,6 @@
 package root;
 
-public class BasicStuentInfoBlob {
+public class BasicStuentInfoBlob extends Object{
     private String Name_;
     private String ID_;
     private String Gender_;
