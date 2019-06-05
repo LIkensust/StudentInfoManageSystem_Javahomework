@@ -46,20 +46,21 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/root/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-8">
-              <caret line="3" selection-start-line="3" selection-end-line="3" />
+            <state relative-caret-position="171">
+              <caret line="9" column="10" selection-start-line="9" selection-start-column="10" selection-end-line="9" selection-end-column="10" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/root/InterFace.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-18">
-              <caret line="242" column="117" selection-start-line="242" selection-start-column="117" selection-end-line="242" selection-end-column="117" />
+            <state relative-caret-position="38">
+              <caret line="197" column="42" lean-forward="true" selection-start-line="197" selection-start-column="42" selection-end-line="197" selection-end-column="42" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="class#PageSet_page4#0" />
+                <element signature="class#PageSet_page1#0;class#PartlySet#0" />
+                <element signature="method#actionPerformed#0;class#PageSet_page1#0;class#PartlySet#0" />
               </folding>
             </state>
           </provider>
@@ -68,34 +69,26 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/root/CheckTool.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-8">
+            <state relative-caret-position="171">
               <caret line="9" column="45" selection-start-line="9" selection-start-column="45" selection-end-line="9" selection-end-column="45" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/doc">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret line="35" column="29" selection-start-line="35" selection-start-column="29" selection-end-line="35" selection-end-column="29" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/root/DatabaseOperation.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret lean-forward="true" />
+            <state relative-caret-position="780">
+              <caret line="324" lean-forward="true" selection-start-line="324" selection-end-line="324" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#DatabaseOperation#0;class#DatabaseOperation#0" />
                 <element signature="method#singleselect#0;class#DatabaseOperation#0" />
+                <element signature="method#GetClassList#0;class#DatabaseOperation#0" />
                 <element signature="method#GetStudentBasicIndo_all#0;class#DatabaseOperation#0" />
                 <element signature="method#GetStudentBasicInfo_byID#0;class#DatabaseOperation#0" />
-                <element signature="method#InserIntoTable#0;class#DatabaseOperation#0" />
                 <element signature="method#GetStudentBasicInfo_byCollege#0;class#DatabaseOperation#0" />
+                <element signature="method#InserIntoTable#0;class#DatabaseOperation#0" />
                 <element signature="method#test#0;class#DatabaseOperation#0" />
                 <element signature="method#createfakedata#0;class#DatabaseOperation#0" />
               </folding>
@@ -104,22 +97,28 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/5f2f0dc2-27a4-4c19-88f9-b7bc702b2134/console.sql">
+        <entry file="file://$PROJECT_DIR$/src/doc">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-8">
-              <caret line="2" column="60" selection-start-line="2" selection-start-column="60" selection-end-line="2" selection-end-column="60" />
+            <state relative-caret-position="95">
+              <caret line="5" column="5" lean-forward="true" selection-start-line="5" selection-start-column="5" selection-end-line="5" selection-end-column="5" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/root/SettingReader.java">
+        <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/5f2f0dc2-27a4-4c19-88f9-b7bc702b2134/console.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-8">
-              <caret line="20" column="51" selection-start-line="20" selection-start-column="51" selection-end-line="20" selection-end-column="51" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="256">
+              <caret line="91" lean-forward="true" selection-start-line="91" selection-end-line="91" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/grade.csv">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="190">
+              <caret line="10" column="20" lean-forward="true" selection-start-line="10" selection-start-column="20" selection-end-line="10" selection-end-column="20" />
             </state>
           </provider>
         </entry>
@@ -127,7 +126,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/settings/MysqlConnectionSetting.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-8">
+            <state relative-caret-position="76">
               <caret line="4" column="1" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="1" />
             </state>
           </provider>
@@ -136,8 +135,43 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/root/BasicStuentInfoBlob.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-8">
-              <caret line="2" column="47" selection-start-line="2" selection-start-column="47" selection-end-line="2" selection-end-column="47" />
+            <state relative-caret-position="209">
+              <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/root/GradeInfoBlob.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret lean-forward="true" />
+              <folding>
+                <element signature="e#306#307#0" expanded="true" />
+                <element signature="e#331#332#0" expanded="true" />
+                <element signature="e#369#370#0" expanded="true" />
+                <element signature="e#403#404#0" expanded="true" />
+                <element signature="e#437#438#0" expanded="true" />
+                <element signature="e#467#468#0" expanded="true" />
+                <element signature="e#500#501#0" expanded="true" />
+                <element signature="e#529#530#0" expanded="true" />
+                <element signature="e#562#563#0" expanded="true" />
+                <element signature="e#591#592#0" expanded="true" />
+                <element signature="e#623#624#0" expanded="true" />
+                <element signature="e#651#652#0" expanded="true" />
+                <element signature="e#687#688#0" expanded="true" />
+                <element signature="e#715#716#0" expanded="true" />
+                <element signature="e#769#770#0" expanded="true" />
+                <element signature="e#810#811#0" expanded="true" />
+                <element signature="e#856#857#0" expanded="true" />
+                <element signature="e#889#890#0" expanded="true" />
+                <element signature="e#933#934#0" expanded="true" />
+                <element signature="e#964#965#0" expanded="true" />
+                <element signature="e#1008#1009#0" expanded="true" />
+                <element signature="e#1039#1040#0" expanded="true" />
+                <element signature="e#1081#1082#0" expanded="true" />
+                <element signature="e#1110#1111#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -165,12 +199,13 @@
         <option value="$PROJECT_DIR$/src/settings/MysqlConnectionSetting.json" />
         <option value="$PROJECT_DIR$/src/root/DataBlob.java" />
         <option value="$PROJECT_DIR$/src/root/CheckTool.java" />
-        <option value="$PROJECT_DIR$/src/doc" />
-        <option value="$PROJECT_DIR$/src/root/Main.java" />
-        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/5f2f0dc2-27a4-4c19-88f9-b7bc702b2134/console.sql" />
         <option value="$PROJECT_DIR$/src/root/BasicStuentInfoBlob.java" />
-        <option value="$PROJECT_DIR$/src/root/InterFace.java" />
+        <option value="$PROJECT_DIR$/src/root/Main.java" />
+        <option value="$PROJECT_DIR$/src/root/GradeInfoBlob.java" />
         <option value="$PROJECT_DIR$/src/root/DatabaseOperation.java" />
+        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/5f2f0dc2-27a4-4c19-88f9-b7bc702b2134/console.sql" />
+        <option value="$PROJECT_DIR$/src/doc" />
+        <option value="$PROJECT_DIR$/src/root/InterFace.java" />
       </list>
     </option>
   </component>
@@ -210,6 +245,13 @@
               <item name="StudentInfoManagementSystem" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="root" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="StudentInfoManagementSystem" type="b2602c69:ProjectViewProjectNode" />
+              <item name="StudentInfoManagementSystem" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="root" type="462c0819:PsiDirectoryNode" />
+              <item name="InterFace.java" type="529ef68f:ClassesTreeStructureProvider$PsiClassOwnerTreeNode" />
             </path>
             <path>
               <item name="StudentInfoManagementSystem" type="b2602c69:ProjectViewProjectNode" />
@@ -296,18 +338,18 @@
       <workItem from="1559478266822" duration="577000" />
       <workItem from="1559479165266" duration="25630000" />
       <workItem from="1559634883188" duration="557000" />
-      <workItem from="1559635514614" duration="21125000" />
+      <workItem from="1559635514614" duration="34570000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="48713000" />
+    <option name="totallyTimeSpent" value="62158000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="25" width="1366" height="700" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.23596358" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.23596358" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -392,13 +434,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/doc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="35" column="29" selection-start-line="35" selection-start-column="29" selection-end-line="35" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/2016studentinfo.csv">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1309">
@@ -406,66 +441,115 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/settings/MysqlConnectionSetting.json">
+    <entry file="file://$PROJECT_DIR$/src/grade.csv">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-8">
-          <caret line="4" column="1" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="1" />
+        <state relative-caret-position="190">
+          <caret line="10" column="20" lean-forward="true" selection-start-line="10" selection-start-column="20" selection-end-line="10" selection-end-column="20" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/root/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-8">
-          <caret line="3" selection-start-line="3" selection-end-line="3" />
+        <state relative-caret-position="171">
+          <caret line="9" column="10" selection-start-line="9" selection-start-column="10" selection-end-line="9" selection-end-column="10" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/root/BasicStuentInfoBlob.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-8">
-          <caret line="2" column="47" selection-start-line="2" selection-start-column="47" selection-end-line="2" selection-end-column="47" />
+        <state relative-caret-position="209">
+          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/root/InterFace.java">
+    <entry file="file://$PROJECT_DIR$/src/root/GradeInfoBlob.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-18">
-          <caret line="242" column="117" selection-start-line="242" selection-start-column="117" selection-end-line="242" selection-end-column="117" />
+        <state>
+          <caret lean-forward="true" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="class#PageSet_page4#0" />
+            <element signature="e#306#307#0" expanded="true" />
+            <element signature="e#331#332#0" expanded="true" />
+            <element signature="e#369#370#0" expanded="true" />
+            <element signature="e#403#404#0" expanded="true" />
+            <element signature="e#437#438#0" expanded="true" />
+            <element signature="e#467#468#0" expanded="true" />
+            <element signature="e#500#501#0" expanded="true" />
+            <element signature="e#529#530#0" expanded="true" />
+            <element signature="e#562#563#0" expanded="true" />
+            <element signature="e#591#592#0" expanded="true" />
+            <element signature="e#623#624#0" expanded="true" />
+            <element signature="e#651#652#0" expanded="true" />
+            <element signature="e#687#688#0" expanded="true" />
+            <element signature="e#715#716#0" expanded="true" />
+            <element signature="e#769#770#0" expanded="true" />
+            <element signature="e#810#811#0" expanded="true" />
+            <element signature="e#856#857#0" expanded="true" />
+            <element signature="e#889#890#0" expanded="true" />
+            <element signature="e#933#934#0" expanded="true" />
+            <element signature="e#964#965#0" expanded="true" />
+            <element signature="e#1008#1009#0" expanded="true" />
+            <element signature="e#1039#1040#0" expanded="true" />
+            <element signature="e#1081#1082#0" expanded="true" />
+            <element signature="e#1110#1111#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/5f2f0dc2-27a4-4c19-88f9-b7bc702b2134/console.sql">
+    <entry file="file://$PROJECT_DIR$/src/settings/MysqlConnectionSetting.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-8">
-          <caret line="2" column="60" selection-start-line="2" selection-start-column="60" selection-end-line="2" selection-end-column="60" />
+        <state relative-caret-position="76">
+          <caret line="4" column="1" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/root/CheckTool.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-8">
+        <state relative-caret-position="171">
           <caret line="9" column="45" selection-start-line="9" selection-start-column="45" selection-end-line="9" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/5f2f0dc2-27a4-4c19-88f9-b7bc702b2134/console.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="256">
+          <caret line="91" lean-forward="true" selection-start-line="91" selection-end-line="91" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/doc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="5" column="5" lean-forward="true" selection-start-line="5" selection-start-column="5" selection-end-line="5" selection-end-column="5" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/root/DatabaseOperation.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret lean-forward="true" />
+        <state relative-caret-position="780">
+          <caret line="324" lean-forward="true" selection-start-line="324" selection-end-line="324" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#DatabaseOperation#0;class#DatabaseOperation#0" />
             <element signature="method#singleselect#0;class#DatabaseOperation#0" />
+            <element signature="method#GetClassList#0;class#DatabaseOperation#0" />
             <element signature="method#GetStudentBasicIndo_all#0;class#DatabaseOperation#0" />
             <element signature="method#GetStudentBasicInfo_byID#0;class#DatabaseOperation#0" />
-            <element signature="method#InserIntoTable#0;class#DatabaseOperation#0" />
             <element signature="method#GetStudentBasicInfo_byCollege#0;class#DatabaseOperation#0" />
+            <element signature="method#InserIntoTable#0;class#DatabaseOperation#0" />
             <element signature="method#test#0;class#DatabaseOperation#0" />
             <element signature="method#createfakedata#0;class#DatabaseOperation#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/root/InterFace.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="197" column="42" lean-forward="true" selection-start-line="197" selection-start-column="42" selection-end-line="197" selection-end-column="42" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="class#PageSet_page1#0;class#PartlySet#0" />
+            <element signature="method#actionPerformed#0;class#PageSet_page1#0;class#PartlySet#0" />
           </folding>
         </state>
       </provider>

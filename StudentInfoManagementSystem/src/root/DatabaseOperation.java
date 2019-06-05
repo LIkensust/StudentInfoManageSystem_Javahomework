@@ -54,13 +54,18 @@ public class DatabaseOperation {
             }// 什么都不做
         }
         return ret;
-
     }
 
     public ArrayList<String> GetCollegeList() {
         String sql;
         sql = "SELECT distinct college FROM StudentBasicMsg";
         return singleselect(sql,"college");
+    }
+
+    public ArrayList<String> GetCourseList() {
+        String sql;
+        sql = "SELECT distinct CourseName FROM CourseBasicMsg order by CourseName desc";
+        return singleselect(sql,"CourseName");
     }
 
     public ArrayList<String> GetClassList() {
@@ -127,45 +132,6 @@ public class DatabaseOperation {
             }
             // 完成后关闭
             rs.close();
-        }catch(SQLException se){
-            // 处理 JDBC 错误
-            se.printStackTrace();
-        }catch(Exception e){
-            // 处理 Class.forName 错误
-            e.printStackTrace();
-        }finally{
-            // 关闭资源
-            try{
-                if(stmt!=null) stmt.close();
-            }catch(SQLException se2){
-            }// 什么都不做
-        }
-        return ret;
-    }
-
-    public int InserIntoTable(String tablename, ArrayList<String> values) {
-        Statement stmt = null;
-        int ret = 0;
-        if(tablename == null || tablename.equals("")) {
-            return -1;
-        }
-        if(values == null || values.size() == 0) {
-            return -1;
-        }
-        try{
-            String sql;
-
-            sql = "insert into " + tablename + " value (";
-            for(int i = 0;i < values.size();i++) {
-                if(values.get(i) == null || values.get(i).equals("")) {
-                    return -1;
-                }
-                if(i == values.size() - 1) break;;
-                sql = sql + '"' + values.get(i) + '"' + ",";
-            }
-            sql = sql + '"' + values.get(values.size() - 1) + '"' + ")";
-            stmt = conn.createStatement();
-            ret = stmt.executeUpdate(sql);
         }catch(SQLException se){
             // 处理 JDBC 错误
             se.printStackTrace();
@@ -259,6 +225,104 @@ public class DatabaseOperation {
         return ret;
     }
 
+    public ArrayList<GradeInfoBlob> GetGradeInfo(String ID,String classname,String course,boolean regexp) {
+        ArrayList<GradeInfoBlob> ret = new ArrayList<>();
+        String sql;
+        if(regexp) {
+            sql = "select StudentBasicMsg.ID,StudentName,class,CourseName,grade,college " +
+                    "from (StudentBasicMsg inner join SelectCourseMsg " +
+                    " on StudentBasicMsg.ID = SelectCourseMsg.ID ) " +
+                    "inner join CourseBasicMsg" +
+                    " on SelectCourseMsg.Course = CourseBasicMsg.Course " +
+                    "where CourseBasicMsg.CourseName REGEXP " + '"' + course + '"' +
+                    " and StudentBasicMsg.id REGEXP "+ '"' + ID + '"' +
+                    " and StudentBasicMsg.class REGEXP "+ '"' + classname + '"';
+        }
+        else {
+            sql = "select StudentBasicMsg.ID,StudentName,class,CourseName,grade,college " +
+                    "from (StudentBasicMsg inner join SelectCourseMsg " +
+                    " on StudentBasicMsg.ID = SelectCourseMsg.ID ) " +
+                    "inner join CourseBasicMsg" +
+                    " on SelectCourseMsg.Course = CourseBasicMsg.Course " +
+                    "where CourseBasicMsg.CourseName = " + '"' + course + '"' +
+                    " and StudentBasicMsg.id REGEXP "+ '"' + ID + '"' +
+                    " and StudentBasicMsg.class REGEXP "+ '"' + classname + '"';
+        }
+
+        //System.out.println(sql);
+        Statement stmt = null;
+        try{
+            stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            // 展开结果集数据库
+            while(rs.next()){
+                // 通过字段检索
+                GradeInfoBlob tmp = new GradeInfoBlob();
+                tmp.setID(rs.getString("ID"));
+                tmp.setStudentName(rs.getString("StudentName"));
+                tmp.setClass_(rs.getString("class"));
+                tmp.setCollege(rs.getString("College"));
+                tmp.setCourse(rs.getString("CourseName"));
+                tmp.setGrade(rs.getString("grade"));
+                ret.add(tmp);
+            }
+            // 完成后关闭
+            rs.close();
+        }catch(SQLException se){
+            // 处理 JDBC 错误
+            se.printStackTrace();
+        }catch(Exception e){
+            // 处理 Class.forName 错误
+            e.printStackTrace();
+        }finally{
+            // 关闭资源
+            try{
+                if(stmt!=null) stmt.close();
+            }catch(SQLException se2){
+            }// 什么都不做
+        }
+        return ret;
+    }
+
+    public int InserIntoTable(String tablename, ArrayList<String> values) {
+        Statement stmt = null;
+        int ret = 0;
+        if(tablename == null || tablename.equals("")) {
+            return -1;
+        }
+        if(values == null || values.size() == 0) {
+            return -1;
+        }
+        try{
+            String sql;
+
+            sql = "insert into " + tablename + " value (";
+            for(int i = 0;i < values.size();i++) {
+                if(values.get(i) == null || values.get(i).equals("")) {
+                    return -1;
+                }
+                if(i == values.size() - 1) break;;
+                sql = sql + '"' + values.get(i) + '"' + ",";
+            }
+            sql = sql + '"' + values.get(values.size() - 1) + '"' + ")";
+            stmt = conn.createStatement();
+            ret = stmt.executeUpdate(sql);
+        }catch(SQLException se){
+            // 处理 JDBC 错误
+            se.printStackTrace();
+        }catch(Exception e){
+            // 处理 Class.forName 错误
+            e.printStackTrace();
+        }finally{
+            // 关闭资源
+            try{
+                if(stmt!=null) stmt.close();
+            }catch(SQLException se2){
+            }// 什么都不做
+        }
+        return ret;
+    }
+
     public void test() {
         Statement stmt = null;
         try{
@@ -299,6 +363,7 @@ public class DatabaseOperation {
 
     public void createfakedata() {
         String filename = "/home/liyuan/IdeaProjects/StudentInfoManagementSystem/src/2016studentinfo.csv";
+        String gradefilename = "/home/liyuan/IdeaProjects/StudentInfoManagementSystem/src/grade.csv";
         String line;
         try{
             BufferedReader in = new BufferedReader(new FileReader(filename));
@@ -313,6 +378,20 @@ public class DatabaseOperation {
                 values.add(oneline[2]);
                 values.add(oneline[4]);
                 int num = InserIntoTable("StudentBasicMsg",values);
+                System.out.println("insert num :" + num);
+                line = in.readLine();
+            }
+            in.close();
+            in = new BufferedReader(new FileReader(gradefilename));
+            line = in.readLine();
+            while(line != null) {
+                String[] oneline = line.split(",");
+                //201611010532,杨晨涛,信息162,男,文理学院
+                ArrayList<String> values = new ArrayList<>();
+                values.add(oneline[0]);
+                values.add(oneline[1]);
+                values.add(oneline[2]);
+                int num = InserIntoTable("SelectCourseMsg",values);
                 System.out.println("insert num :" + num);
                 line = in.readLine();
             }

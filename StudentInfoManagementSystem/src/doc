@@ -12,9 +12,9 @@
    能够实现学生信息维护（录入、修改和删除）；
    学生信息浏览；-------ok
    按“学号”查询学生信息； -------ok
-   按“姓名”和“所在班级”查询学生信息；
-   按“学院名称”查询学生信息；
-   按课程查询学生成绩等功能。
+   按“姓名”和“所在班级”查询学生信息；--------ok
+   按“学院名称”查询学生信息；-------ok
+   按课程查询学生成绩等功能。-------ok
 4．分析总结。
 实现步骤：
     1． 数据库、数据表（或数据文件）设计；
@@ -44,4 +44,5 @@ create table SelectCourseMsg (
     Grade float,
     foreign key (ID) references StudentBasicMsg(ID),
     foreign key (Course) references CourseBasicMsg(Course)
+
 );
