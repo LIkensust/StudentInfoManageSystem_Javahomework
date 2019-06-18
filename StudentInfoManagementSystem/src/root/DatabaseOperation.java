@@ -229,24 +229,26 @@ public class DatabaseOperation {
         ArrayList<GradeInfoBlob> ret = new ArrayList<>();
         String sql;
         if(regexp) {
-            sql = "select StudentBasicMsg.ID,StudentName,class,CourseName,grade,college " +
+            sql = "select StudentBasicMsg.ID,StudentName,class,CourseName,grade,college,gender " +
                     "from (StudentBasicMsg inner join SelectCourseMsg " +
                     " on StudentBasicMsg.ID = SelectCourseMsg.ID ) " +
                     "inner join CourseBasicMsg" +
                     " on SelectCourseMsg.Course = CourseBasicMsg.Course " +
                     "where CourseBasicMsg.CourseName REGEXP " + '"' + course + '"' +
                     " and StudentBasicMsg.id REGEXP "+ '"' + ID + '"' +
-                    " and StudentBasicMsg.class REGEXP "+ '"' + classname + '"';
+                    " and StudentBasicMsg.class REGEXP "+ '"' + classname + '"'+
+                    " order by class,gender,StudentBasicMsg.id";
         }
         else {
-            sql = "select StudentBasicMsg.ID,StudentName,class,CourseName,grade,college " +
+            sql = "select StudentBasicMsg.ID,StudentName,class,CourseName,grade,college,gender " +
                     "from (StudentBasicMsg inner join SelectCourseMsg " +
                     " on StudentBasicMsg.ID = SelectCourseMsg.ID ) " +
                     "inner join CourseBasicMsg" +
                     " on SelectCourseMsg.Course = CourseBasicMsg.Course " +
                     "where CourseBasicMsg.CourseName = " + '"' + course + '"' +
                     " and StudentBasicMsg.id REGEXP "+ '"' + ID + '"' +
-                    " and StudentBasicMsg.class REGEXP "+ '"' + classname + '"';
+                    " and StudentBasicMsg.class REGEXP "+ '"' + classname + '"'+
+                    " order by class,gender,StudentBasicMsg.id";
         }
 
         //System.out.println(sql);
@@ -264,6 +266,7 @@ public class DatabaseOperation {
                 tmp.setCollege(rs.getString("College"));
                 tmp.setCourse(rs.getString("CourseName"));
                 tmp.setGrade(rs.getString("grade"));
+                tmp.setGender(rs.getString("gender"));
                 ret.add(tmp);
             }
             // 完成后关闭
@@ -282,6 +285,32 @@ public class DatabaseOperation {
             }// 什么都不做
         }
         return ret;
+    }
+
+    public void delete_course(ArrayList<ArrayList<String>> text) {
+        Statement stmt = null;
+        try{
+            String sql = "delete from SelectCourseMsg where ID = ? and Course in (select Course from CourseBasicMsg where CourseName = ?)";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            for(int i = 0;i<text.size();i++) {
+                ps.setString(1, text.get(i).get(0));
+                ps.setString(2, text.get(i).get(5));
+                ps.executeUpdate();
+            }
+            ps.close();
+        }catch(SQLException se){
+            // 处理 JDBC 错误
+            se.printStackTrace();
+        }catch(Exception e){
+            // 处理 Class.forName 错误
+            e.printStackTrace();
+        }finally {
+            // 关闭资源
+            try {
+                if (stmt != null) stmt.close();
+            } catch (SQLException se2) {
+            }// 什么都不做
+        }
     }
 
     public int InserIntoTable(String tablename, ArrayList<String> values) {

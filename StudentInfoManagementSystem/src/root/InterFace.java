@@ -1,9 +1,14 @@
 package root;
+
+import org.jb2011.lnf.beautyeye.ch3_button.BEButtonUI;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.Vector;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellEditor;
 
 public class InterFace {
     public void RootIntrtFace() {
@@ -11,7 +16,7 @@ public class InterFace {
         JFrame frame = new JFrame("学生成绩管理系统");
         //Container root_pane = frame.getRootPane();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(500,600);
+        frame.setSize(520,600);
 
         //set menu
         MenuManage.SetMenu(frame);
@@ -26,6 +31,7 @@ public class InterFace {
 
     private void SetTabbed(JFrame frame) {
         //JScrollPane mainscroll = new JScrollPane();
+        JPanel top = new JPanel(new FlowLayout());
         JTabbedPane tabpane = new JTabbedPane();
         JPanel p1 = new JPanel();
         JPanel p2 = new JPanel();
@@ -43,8 +49,12 @@ public class InterFace {
         PartlySet_Grade setp2 = new PartlySet_Grade();
         setp2.GradeInterface(p2);
 
+        PartlySet_Option setp3 = new PartlySet_Option();
+        setp3.MsgEditorInterface(p3);
+
         //mainscroll.add(tabpane);
-        frame.add(tabpane);
+        top.add(tabpane);
+        frame.add(top);
     }
 }
 
@@ -116,7 +126,11 @@ class PartlySet_Basic implements ItemListener{
 
             JPanel top = new JPanel();
             //ok
+            ImageIcon icon = new ImageIcon("../resource/img/cat.png");
+
             Search = new JButton("查询");
+            //btnInstance.setUI(new BEButtonUI().setNormalColor(BEButtonUI.NormalColor.green));
+            //Search.setUI(new BEButtonUI().setNormalColor(BEButtonUI.NormalColor.green));
             Search.addActionListener(this);
 
             top.add(IDEditor);
@@ -445,6 +459,7 @@ class PartlySet_Grade implements ActionListener {
             while(table_model.getRowCount() !=0 ) {
                 table_model.removeRow(0);
             }
+
             if(msg.size() == 0) {
                 JOptionPane.showMessageDialog(new JDialog(),"没有找学生相关信息,数据未录入","请重试",JOptionPane.WARNING_MESSAGE);
             } else {
@@ -461,6 +476,265 @@ class PartlySet_Grade implements ActionListener {
                 }
             }
             conn_.revalidate();
+        }
+    }
+}
+
+class PartlySet_Option implements ActionListener {
+    private Container conn_;
+    private JComboBox courseEditor;
+    private JComboBox classEditor;
+    private JTextField IDEditor;
+    private JButton SearchByMsg;
+    //private JButton SearchById;
+    private DefaultTableModel table_model;
+    private JTable Msgtable;
+    private JScrollPane scrollPane;
+    private JButton Multyoptions;
+    private JButton AddData;
+    private JFrame OptionWindow;
+    private String head[] = {"学号","姓名","性别","学院","班级","课程","成绩"};
+    private int headsize;
+    public void MsgEditorInterface(Container conn) {
+        headsize = 7;
+        conn_ = conn;
+        conn_.setLayout(new BoxLayout(conn_,BoxLayout.Y_AXIS));
+        setgradeinterface();
+    }
+
+    private void setgradeinterface() {
+        //input
+        DatabaseOperation dbop = new DatabaseOperation();
+        courseEditor = new JComboBox();
+        ArrayList<String> courselist = dbop.GetCourseList();
+        for(int i=0; i < courselist.size(); i++) {
+            courseEditor.addItem(courselist.get(i));
+        }
+        courseEditor.addItem("全部学科");
+        courseEditor.setEditable(true);
+
+        classEditor = new JComboBox();
+        ArrayList<String> classlist = dbop.GetClassList();
+        for(int i = 0; i < classlist.size(); i++) {
+            classEditor.addItem(classlist.get(i));
+        }
+        classEditor.addItem("全部班级");
+        classEditor.setEditable(true);
+        IDEditor = new JTextField(12);
+        JPanel top = new JPanel(new GridBagLayout());
+        //ok
+        SearchByMsg = new JButton("查询");
+        //Search.addKeyListener(this);
+        SearchByMsg.addActionListener(this);
+
+        Multyoptions = new JButton("对选中数据操作");
+        Multyoptions.addActionListener(this);
+
+        AddData = new JButton("添加数据");
+        AddData.addActionListener(this);
+
+        GridBagConstraints cons = new GridBagConstraints();
+        cons.gridx = 0;
+        cons.gridy = 0;
+        top.add(courseEditor,cons);
+        cons.gridx = 1;
+        cons.gridy = 0;
+        top.add(classEditor,cons);
+        cons.gridx = 0;
+        cons.gridy = 1;
+        cons.fill = cons.HORIZONTAL;
+        top.add(new JLabel("指定某个学号单独查询："),cons);
+        cons.gridx = 1;
+        cons.gridy = 1;
+        top.add(IDEditor,cons);
+
+        cons.gridx = 2;
+        cons.gridy = 1;
+        top.add(SearchByMsg,cons);
+
+        cons.gridx = 0;
+        cons.gridy = 2;
+        top.add(Multyoptions,cons);
+
+        cons.gridx = 1;
+        cons.gridy = 2;
+        top.add(AddData,cons);
+
+        conn_.add(top);
+
+        JPanel center = new JPanel();
+
+        table_model = new DefaultTableModel(null,head);
+        Msgtable = new JTable(table_model);
+        scrollPane = new JScrollPane(Msgtable){
+            public Dimension getPreferredSize() {
+                return new Dimension(500, 400);
+            }
+        };
+        center.add(scrollPane);
+
+        conn_.add(center);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent actionEvent) {
+        //"学号","姓名","性别","学院","班级","课程","成绩"
+        if(actionEvent.getActionCommand().equals("对选中数据操作")) {
+            int index[] = Msgtable.getSelectedRows();
+            if(index.length == 0) {
+                JOptionPane.showMessageDialog(new JDialog(),"未选中任何一行","请至少选中一行后再操作",JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            OptionWindow = new JFrame();
+            OptionWindow.setSize(600,400);
+            //Option Window
+            SonWindow setter = new SonWindow(OptionWindow,Msgtable,table_model,headsize,head);
+            //end of Option Window
+            OptionWindow.setVisible(true);
+
+        }
+        else if(actionEvent.getActionCommand().equals("查询")) {
+            DatabaseOperation dbop  = new DatabaseOperation();
+            String CourseName = (String)courseEditor.getSelectedItem();
+            String ClassName = (String)classEditor.getSelectedItem();
+            String Idnum = IDEditor.getText();
+            boolean regexp = false;
+            if(CourseName.equals("全部学科")) {
+                CourseName = ".*";
+                regexp = true;
+            }
+            if(ClassName.equals("全部班级")) {
+                ClassName = ".*";
+            }
+            if(Idnum == null || Idnum.equals("")) {
+                Idnum = ".*";
+            } else {
+                if (Idnum.length() == 12) {
+                    CourseName = ".*";
+                    ClassName = ".*";
+                    regexp = true;
+                }
+            }
+
+            ArrayList<GradeInfoBlob> msg = dbop.GetGradeInfo(Idnum,ClassName,CourseName,regexp);
+            while(table_model.getRowCount() !=0 ) {
+                table_model.removeRow(0);
+            }
+
+            if(msg.size() == 0) {
+                JOptionPane.showMessageDialog(new JDialog(),"没有找学生相关信息,数据未录入","请重试",JOptionPane.WARNING_MESSAGE);
+            } else {
+                for (int i = 0; i < msg.size(); i++) {
+                    String[] oneline = new String[7];
+                    //"学号","姓名","性别","学院","班级","课程","成绩"
+                    oneline[0] = msg.get(i).getID();
+                    oneline[1] = msg.get(i).getStudentName();
+                    oneline[2] = msg.get(i).getGender();
+                    oneline[3] = msg.get(i).getCollege();
+                    oneline[4] = msg.get(i).getClass_();
+                    oneline[5] = msg.get(i).getCourse();
+                    oneline[6] = msg.get(i).getGrade();
+                    table_model.addRow(oneline);
+                }
+            }
+            conn_.revalidate();
+        }
+        else if(actionEvent.getActionCommand().equals("添加数据")) {
+            int index[] = Msgtable.getSelectedRows();
+            if(index.length == 0) {
+                JOptionPane.showMessageDialog(new JDialog(),"未选中任何一行","请至少选中一行后再操作",JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            OptionWindow = new JFrame();
+            OptionWindow.setSize(500,600);
+            JPanel optionpanel = new JPanel(new BoxLayout(conn_,BoxLayout.Y_AXIS));
+            //Option Window
+
+            //end of Option Window
+            OptionWindow.add(optionpanel);
+            OptionWindow.setVisible(true);
+        }
+    }
+}
+
+class SonWindow implements ActionListener {
+    private JFrame optionwindow;
+    private JPanel optionpanel;
+    private JTable Msgtable;
+    private int headsize;
+    private String[] head;
+    private DefaultTableModel table_model;
+    private DefaultTableModel option_model;
+    private JTable option_table;
+    private JButton delete_course;
+    private JButton delete_all;
+    private JButton updata;
+    public SonWindow(JFrame optionwindow, JTable msgtable, DefaultTableModel table_model,int size,String[] head) {
+        this.optionwindow = optionwindow;
+        Msgtable = msgtable;
+        this.table_model = table_model;
+        this.headsize = size;
+        this.head = head;
+        setpage();
+    }
+
+    public void setpage() {
+        int index[] = Msgtable.getSelectedRows();
+        if(index.length == 0) {
+            JOptionPane.showMessageDialog(new JDialog(),"未选中任何一行","请至少选中一行后再操作",JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        optionpanel = new JPanel();
+        option_model = new DefaultTableModel(null,head);
+        option_table = new JTable(option_model);
+        for(int i:index){
+            String[] oneline = new String[headsize];
+            for(int j = 0; j < headsize; j++) {
+                oneline[j] = (String) table_model.getValueAt(i, j);
+            }
+            option_model.addRow(oneline);
+        }
+        JScrollPane option_scrollPane = new JScrollPane(option_table){
+            public Dimension getPreferredSize() {
+                return new Dimension(580, 150);
+            }
+        };
+        optionpanel.add(option_scrollPane);
+
+        JPanel down = new JPanel(new FlowLayout());
+        delete_course = new JButton("删除课程信息");
+        delete_all = new JButton("删除涉及学生的全部信息");
+        updata = new JButton("更新数据");
+        delete_course.addActionListener(this);
+        delete_all.addActionListener(this);
+        updata.addActionListener(this);
+        down.add(updata);
+        down.add(delete_course);
+        down.add(delete_all);
+        optionpanel.add(down);
+        optionwindow.add(optionpanel);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent actionEvent) {
+        if(actionEvent.getActionCommand().equals("删除课程信息")) {
+            int result = JOptionPane.showConfirmDialog(null, "确认删除这些选课信息吗", "删除之前的确认",
+                    JOptionPane.YES_NO_OPTION);
+            if(result==JOptionPane.YES_OPTION){
+                ArrayList<ArrayList<String>> text = new ArrayList<>();
+                for(int i = 0 ; i<table_model.getColumnCount(); i++){
+                    text.add(new ArrayList<>());
+                    for(int j = 0; j < headsize; j++) {
+                        text.get(i).add((String) table_model.getValueAt(i, j));
+                    }
+                }
+                DatabaseOperation dbop  = new DatabaseOperation();
+                dbop.delete_course(text);
+            }
+        } else if (actionEvent.getActionCommand().equals("删除涉及学生的全部信息")) {
+
+        } else if (actionEvent.getActionCommand().equals("更新数据")) {
+
         }
     }
 }

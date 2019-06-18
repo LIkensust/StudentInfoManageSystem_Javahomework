@@ -8,6 +8,7 @@ public class GradeInfoBlob {
     private String Class_;
     private String Course;
     private String Grade;
+    private String Gender;
 
     public GradeInfoBlob() {
     }
@@ -58,5 +59,13 @@ public class GradeInfoBlob {
 
     public void setGrade(String grade) {
         Grade = grade;
+    }
+
+    public String getGender() {
+        return Gender;
+    }
+
+    public void setGender(String gender) {
+        Gender = gender;
     }
 }
